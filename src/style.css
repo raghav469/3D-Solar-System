@@ -1,0 +1,418 @@
+/* Editorial Cinematic Styling Core */
+:root {
+  --bg-dark: #020207;
+  --accent-cyan: #00f3ff;
+  --accent-blue: #0066ff;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --panel-bg: rgba(6, 6, 18, 0.4);
+  --panel-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  scroll-behavior: smooth;
+}
+
+/* Background Canvas holds Three.js scene (Fixed in Viewport) */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: var(--bg-dark);
+}
+
+/* Main Scrollable Overlay Layer */
+#scroll-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none; /* Mouse movements pass through to Three.js canvas */
+}
+
+/* Page sections */
+.scroll-section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 4rem 10%;
+}
+
+/* Editorial Glassmorphic Information Blocks */
+.editorial-box {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(25px) saturate(140%);
+  -webkit-backdrop-filter: blur(25px) saturate(140%);
+  border-radius: 12px;
+  padding: 3.5rem;
+  max-width: 520px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  pointer-events: auto; /* Enable hover/clicks on information boxes */
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Layout alignment variants */
+.left-box {
+  margin-right: auto;
+  border-left: 3px solid rgba(255, 255, 255, 0.25);
+}
+
+.right-box {
+  margin-left: auto;
+  border-right: 3px solid rgba(255, 255, 255, 0.25);
+}
+
+.center-box {
+  margin: 0 auto;
+  text-align: center;
+  max-width: 650px;
+}
+
+/* Reveal Animation State triggered by JS intersection observer */
+.scroll-section.active .editorial-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typography styles */
+.section-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 3.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02rem;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.data-badge {
+  display: inline-flex;
+  margin-top: 2rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  gap: 0.8rem;
+  letter-spacing: 0.05rem;
+}
+
+.data-badge span {
+  opacity: 0.85;
+}
+
+/* Scroll Intro/Title page elements */
+.glitch-title {
+  font-family: var(--font-serif);
+  font-size: 8rem;
+  font-weight: 300;
+  letter-spacing: 2rem;
+  text-indent: 2rem;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4rem;
+}
+
+/* Interactive Scroll Indicator Mouse shape */
+.scroll-indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.mouse-icon {
+  width: 20px;
+  height: 35px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  position: relative;
+}
+
+.mouse-icon::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background-color: var(--accent-cyan);
+  border-radius: 20px;
+  animation: wheel-scroll 1.6s infinite ease-out;
+}
+
+.scroll-text {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  color: var(--text-muted);
+}
+
+/* Floating HUD Controls */
+#floating-controls {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.float-btn {
+  background: rgba(4, 4, 12, 0.5);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-primary);
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: all 0.3s;
+}
+
+.float-btn:hover {
+  background: rgba(0, 243, 255, 0.08);
+  border-color: rgba(0, 243, 255, 0.25);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+
+.float-btn.active {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+
+/* Ending section & clean Editorial Footer */
+.end-box {
+  border-top: 3px solid rgba(255, 255, 255, 0.1);
+  padding: 4rem;
+}
+
+.quote {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 3rem 0;
+}
+
+footer {
+  text-align: center;
+}
+
+/* Premium Raghav Saini Footer styles */
+.made-by {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  letter-spacing: 0.15rem;
+  margin-bottom: 1rem;
+  text-transform: lowercase;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.copyright {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05rem;
+  line-height: 1.5;
+}
+
+/* Space Loader Screen */
+#loader-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #020205;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 1s ease-out, visibility 1s;
+}
+
+#loader-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  text-align: center;
+  width: 90%;
+  max-width: 450px;
+}
+
+.loader-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.loader-bar-container {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+#loader-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--text-primary);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px #fff;
+}
+
+#loader-status {
+  font-size: 0.75rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+}
+
+.loader-trivia {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  padding: 1.5rem;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trivia-label {
+  font-size: 0.65rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.15rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#trivia-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* Animations */
+@keyframes wheel-scroll {
+  0% {
+    top: 6px;
+    opacity: 1;
+    height: 3px;
+  }
+  50% {
+    top: 6px;
+    opacity: 1;
+    height: 10px;
+  }
+  100% {
+    top: 18px;
+    opacity: 0;
+    height: 3px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .scroll-section {
+    padding: 6rem 5%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .editorial-box {
+    margin: 0 auto;
+    padding: 2.2rem;
+    max-width: 100%;
+  }
+  .glitch-title {
+    font-size: 4rem;
+    letter-spacing: 0.8rem;
+    text-indent: 0.8rem;
+  }
+  .subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 0.15rem;
+  }
+  h2 {
+    font-size: 2.5rem;
+  }
+  .made-by {
+    font-size: 1.5rem;
+  }
+}

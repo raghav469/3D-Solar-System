@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A 3D Cinematic Journey</title>
+  <!-- Premium editorial fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- Canvas container for Three.js (Fixed Background) -->
+  <div id="canvas-container"></div>
+
+  <!-- Space Loader Screen -->
+  <div id="loader-screen">
+    <div class="loader-content">
+      <h1 class="loader-title">INITIALIZING TELEMETRY</h1>
+      <div class="loader-bar-container">
+        <div id="loader-bar"></div>
+      </div>
+      <p id="loader-status">Scanning celestial bodies...</p>
+      <div class="loader-trivia">
+        <span class="trivia-label">DATABASE:</span>
+        <p id="trivia-text">The Sun accounts for 99.86% of the mass in the Solar System.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient Audio and Info Buttons (Floating) -->
+  <div id="floating-controls">
+    <button id="toggle-audio-btn" class="float-btn">
+      <span class="btn-icon">🔊</span> <span class="btn-label">AUDIO: OFF</span>
+    </button>
+  </div>
+
+  <!-- Scrollytelling Panels Container -->
+  <div id="scroll-container">
+    <!-- Title Screen -->
+    <section class="scroll-section" id="sec-intro">
+      <div class="editorial-box center-box">
+        <h1 class="glitch-title">3D Solar System</h1>
+        <p class="subtitle">A Cinematic Journey Through the Solar System</p>
+        <div class="scroll-indicator">
+          <span class="mouse-icon"></span>
+          <span class="scroll-text">Scroll to Begin</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sun Section -->
+    <section class="scroll-section" id="sec-sun">
+      <div class="editorial-box left-box">
+        <span class="section-tag">// The Hearth</span>
+        <h2>The Sun</h2>
+        <p class="description">At the center of our solar system lies a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun accounts for 99.86% of the mass in the Solar System, radiating the light and energy that makes life on Earth possible.</p>
+        <div class="data-badge">
+          <span>Diameter: 1.39M km</span> | <span>Temp: 5,500 °C</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mercury Section -->
+    <section class="scroll-section" id="sec-mercury">
+      <div class="editorial-box right-box">
+        <span class="section-tag">// The Swift Messenger</span>
+        <h2>Mercury</h2>
+        <p class="description">Mercury is the closest planet to the Sun and the smallest in our Solar System. With no substantial atmosphere to retain heat, it suffers the most extreme temperature swings, plummeting to -180 °C in darkness and soaring to 430 °C in daylight.</p>
+        <div class="data-badge">
+          <span>Distance: 57.9M km</span> | <span>Year: 88 Days</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venus Section -->
+    <section class="scroll-section" id="sec-venus">
+      <div class="editorial-box left-box">
+        <span class="section-tag">// The Greenhouse Hell</span>
+        <h2>Venus</h2>
+        <p class="description">Often referred to as Earth's sister planet due to similar size and density, Venus is a hellish landscape trapped beneath a thick, suffocating atmosphere of carbon dioxide. Runaway greenhouse effects make its surface hot enough to melt lead.</p>
+        <div class="data-badge">
+          <span>Temp: 464 °C</span> | <span>Rotation: Retrograde</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Earth Section -->
+    <section class="scroll-section" id="sec-earth">
+      <div class="editorial-box right-box">
+        <span class="section-tag">// The Pale Blue Dot</span>
+        <h2>Earth</h2>
+        <p class="description">Our home, the third planet from the Sun, is the only place in the universe known to harbor life. With vast liquid surface oceans, a protective magnetosphere, and a nitrogen-oxygen rich atmosphere, it is a uniquely balanced cradle of biology.</p>
+        <div class="data-badge">
+          <span>Moons: 1</span> | <span>Day Length: 24 Hours</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mars Section -->
+    <section class="scroll-section" id="sec-mars">
+      <div class="editorial-box left-box">
+        <span class="section-tag">// The Rusty Frontier</span>
+        <h2>Mars</h2>
+        <p class="description">A cold, dry desert world coated in red iron oxide dust. Mars features polar ice caps, ancient dried-up lake beds, and Olympus Mons, the largest volcano in the Solar System. It remains the primary target for humanity's next giant leap.</p>
+        <div class="data-badge">
+          <span>Gravity: 37% of Earth</span> | <span>Year: 687 Days</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jupiter Section -->
+    <section class="scroll-section" id="sec-jupiter">
+      <div class="editorial-box right-box">
+        <span class="section-tag">// The Gas Giant King</span>
+        <h2>Jupiter</h2>
+        <p class="description">Jupiter is a massive gas giant, over twice as heavy as all other planets combined. Its striped atmosphere of hydrogen and helium is whipped into ferocious storms, including the legendary Great Red Spot—a hurricane larger than Earth that has raged for centuries.</p>
+        <div class="data-badge">
+          <span>Moons: 95</span> | <span>Day Length: 9.9 Hours</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Saturn Section -->
+    <section class="scroll-section" id="sec-saturn">
+      <div class="editorial-box left-box">
+        <span class="section-tag">// Lord of the Rings</span>
+        <h2>Saturn</h2>
+        <p class="description">Saturn is a spectacular gas giant adorned with a majestic, sprawling ring system composed of billions of particles of water ice, rocky debris, and dust. It is the least dense planet, capable of floating in water.</p>
+        <div class="data-badge">
+          <span>Moons: 146</span> | <span>Year: 29 Years</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Uranus Section -->
+    <section class="scroll-section" id="sec-uranus">
+      <div class="editorial-box right-box">
+        <span class="section-tag">// The Tilted Mystery</span>
+        <h2>Uranus</h2>
+        <p class="description">An icy giant tinted pale blue-green by atmospheric methane. Uranus is unique for its extreme 98-degree axial tilt, practically rolling on its side as it orbits the Sun, likely due to a cataclysmic collision in its early history.</p>
+        <div class="data-badge">
+          <span>Tilt: 97.8°</span> | <span>Temp: -197 °C</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Neptune Section -->
+    <section class="scroll-section" id="sec-neptune">
+      <div class="editorial-box left-box">
+        <span class="section-tag">// The Windy Abyss</span>
+        <h2>Neptune</h2>
+        <p class="description">The most distant planet in our Solar System, Neptune is a freezing, wind-swept ice giant. Its cobalt-blue atmosphere experiences the most violent storms in the system, with methane winds howling at supersonic speeds.</p>
+        <div class="data-badge">
+          <span>Distance: 4.5B km</span> | <span>Year: 165 Years</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ending / Footer Section -->
+    <section class="scroll-section" id="sec-footer">
+      <div class="editorial-box center-box end-box">
+        <h2>The 3D Solar System</h2>
+        <p class="quote">“Somewhere, something incredible is waiting to be known.” — Carl Sagan</p>
+        <hr class="divider">
+        <footer>
+          <p class="made-by">MADE BY RAGHAV SAINI</p>
+          <p class="copyright">© 2026 The 3D Solar System. All astronomical representations are artistically scaled for engagement.</p>
+        </footer>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
